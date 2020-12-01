@@ -1,14 +1,24 @@
 package com.example.pricemate;
 
 import com.example.pricemate.Item;
+import com.squareup.picasso.Picasso;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>
@@ -32,8 +42,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         Item item = list.get(position);
 
         holder.textTitle.setText(item.getTitle());
-        holder.textPrice.setText(item.getPrice());
-        holder.textCondition.setText(item.getCondition());
+        holder.textPrice.setText("$" +item.getPrice());
+        holder.textCondition.setText("Condition: "+item.getCondition());
+        Picasso.get().load(item.getImageUrl()).into(holder.imageHolder);
     }
 
     @Override
@@ -43,6 +54,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textTitle, textPrice, textCondition;
+        public ImageView imageHolder;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -50,6 +62,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             textTitle = itemView.findViewById(R.id.name);
             textPrice = itemView.findViewById(R.id.price);
             textCondition = itemView.findViewById(R.id.condition);
+            imageHolder = itemView.findViewById(R.id.image);
         }
     }
 
